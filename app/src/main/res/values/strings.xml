@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+
+    <!--Menu strings -->
+    <string name="menu_settings">Settings</string>
+    <string-array name="pref_sort_by_array_strings">
+        <item>Most popular</item>
+        <item>Top rated</item>
+    </string-array>
+    <string-array name="pref_sort_by_array_values">
+        <item translateable="false">1</item> <!--default value maps to Most Popular-->
+        <item translateable="false">2</item>
+    </string-array>
+    <string name="pref_sort_by">Sort by</string>
+    <string name="pref_default_sort_by" translatable="false">1</string>
+
+    <!-- the movie db related strings -->
+    <!--
+    https://api.themoviedb.org/3/movie/popular?api_key=
+    or
+    https://api.themoviedb.org/3/movie/top_rated?api_key=
+    -->
+    <string name="moviedb_url" translatable="false">https://api.themoviedb.org/3/movie</string>
+    <string name="moviedb_uri_top_rated" translatable="false">top_rated</string>
+    <string name="moviedb_uri_popular" translatable="false">popular</string>
+    <string name="moviedb_query_api_key" translatable="false">api_key</string>
+    <!--
+    {
+        "page": 1,
+            "results": [
+                { "poster_path": "/inVq3FRqcYIRl2la8iZikYYxFNR.jpg",
+                  "adult": false,
+                  "overview": "Based upon Marvel Comics’ most unconventional anti-hero, DEADPOOL tells the origin story of former Special Forces operative turned mercenary Wade Wilson, who after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.",
+                  "release_date": "2016-02-09",
+                  "genre_ids": [28,12,35,10749],
+                  "id": 293660,
+                  "original_title": "Deadpool",
+                  "original_language": "en",
+                  "title": "Deadpool",
+                  "backdrop_path": "/nbIrDhOtUpdD9HKDBRy02a8VhpV.jpg",
+                  "popularity": 76.103745,
+                  "vote_count": 3584,
+                  "video": false,"vote_average": 7.18
+                },
+    -->
+    <string name="moviedb_json_results" translatable="false">results</string>
+    <string name="moviedb_json_title" translatable="false">title</string>
+    <string name="moviedb_json_plot" translatable="false">overview</string>
+    <string name="moviedb_json_user_rating" translatable="false">vote_average</string>
+    <string name="moviedb_json_poster_path" translatable="false">poster_path</string>
+    <string name="moviedb_json_release" translatable="false">release_date</string>
+
+    <!--
+    https://image.tmdb.org/t/p/w342/inVq3FRqcYIRl2la8iZikYYxFNR.jpg
+    or
+    https://image.tmdb.org/t/p/w185/inVq3FRqcYIRl2la8iZikYYxFNR.jpg
+    -->
+    <string name="moviedb_poster_url" translateable="false">https://image.tmdb.org/t/p</string>
+    <string name="moviedb_poster_uri_w342" translateable="false">w342</string>
+    <string name="moviedb_poster_uri_w185" translateable="false">w185</string>
+
+    <!-- Strings related to Settings -->
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to movie details -->
+    <string name="button_favourite">mark as\n favourite</string>
+    <string name="detailview_released">Released:</string>
+
+
+</resources>
