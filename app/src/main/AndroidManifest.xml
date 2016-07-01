@@ -10,20 +10,36 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity
             android:name=".MoviePostersMainActivity"
             android:label="Popular Movies">
-            <intent-filter>
+
+           <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
-        <activity android:name=".MovieDetailActivity"></activity>
-    </application>
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MoviePostersMainActivity" >
+            <!-- above and below set for getting a back button in the actionbar of appcompatactivity -->
+           <meta-data
+               android:name="android.support.PARENT_ACTIVITY"
+               android:value=".MoviePostersMainActivity" />
+        </activity>
 
-</manifest>
+        <activity
+            android:name=".MovieDetailActivity"
+            android:parentActivityName=".MoviePostersMainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MoviePostersMainActivity" />
+
+        </activity>
+</application>
+
+    </manifest>
