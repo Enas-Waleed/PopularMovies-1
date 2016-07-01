@@ -36,19 +36,10 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
     }
 
     private ArrayList<MovieParcelable> getMovieDataFromJson(String theMovieDbJsonStr, String posterSize) throws JSONException {
-        ArrayList<MovieParcelable> results;
-        JSONArray theMovieArray;
-        JSONObject theMovieDbJson;
-        Uri.Builder posterURLBuilder;
-
-        //Jsonobject to extract
-        final String MDB_RESULTS = context.getResources().getString(R.string.moviedb_json_results);
-        final String MDB_POSTER = context.getResources().getString(R.string.moviedb_json_poster_path);
-        final String MDB_TITLE = context.getResources().getString(R.string.moviedb_json_title);
-        final String MDB_PLOT = context.getResources().getString(R.string.moviedb_json_plot);
-        final String MDB_USER_RATING = context.getResources().getString(R.string.moviedb_json_user_rating);
-        final String MDB_RELEASE_DATE = context.getResources().getString(R.string.moviedb_json_release);
-
+        JSONArray theMovieArray; //array for the downloaded json list
+        JSONObject theMovieDbJson; //array for the downloaded single movie json object
+        Uri.Builder posterURLBuilder; //to store the url+uri for downloading json list
+        ArrayList<MovieParcelable> results = new ArrayList<MovieParcelable>(); //arraylist to hold de movie parcelables
         //Base url for poster
         posterURLBuilder = Uri.parse(context.getResources().getString(R.string.moviedb_poster_url)).buildUpon();
 
@@ -59,20 +50,19 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
         }
         // parse the data from server as json
         theMovieDbJson = new JSONObject(theMovieDbJsonStr);
-        theMovieArray = theMovieDbJson.getJSONArray(MDB_RESULTS);
+        theMovieArray = theMovieDbJson.getJSONArray(context.getResources().getString(R.string.moviedb_json_results));
 
-        results = new ArrayList<MovieParcelable>();
 
         for (int i = 0; i < theMovieArray.length(); i++) {
             JSONObject aMovie = theMovieArray.getJSONObject(i);
 
-            String posterFileName = aMovie.getString(MDB_POSTER);
-            String title = aMovie.getString(MDB_TITLE);
-            String plot = aMovie.getString(MDB_PLOT);
-            String user_rating = aMovie.getString(MDB_USER_RATING);
-            String release_date = aMovie.getString(MDB_RELEASE_DATE);
+            String posterFileName = aMovie.getString(context.getResources().getString(R.string.moviedb_json_poster_path));
+            String title = aMovie.getString(context.getResources().getString(R.string.moviedb_json_title));
+            String plot = aMovie.getString(context.getResources().getString(R.string.moviedb_json_plot));
+            String user_rating = aMovie.getString(context.getResources().getString(R.string.moviedb_json_user_rating));
+            String release_date = aMovie.getString(context.getResources().getString(R.string.moviedb_json_release));
 
-            results.add(new MovieParcelable(posterFileName, title, plot, user_rating, release_date));
+            results.add(new MovieParcelable(posterFileName, title, plot, user_rating, release_date)); //create new parcable
 
         }
 
@@ -104,12 +94,12 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
             }
 
             Uri builtUri = Uri.parse(context.getResources().getString(R.string.moviedb_url)).buildUpon()
-                    .appendPath(sortOrder) //TODO: set correct string from params
+                    .appendPath(sortOrder)
                     .appendQueryParameter(context.getResources().getString(R.string.moviedb_query_api_key), BuildConfig.THEMOVIEDB_MAP_API_KEY)
                     .build();
 
             URL url = new URL(builtUri.toString());
-            Log.d(LOG_TAG, url.toString());
+            Log.d(LOG_TAG, "Downloading list of movies from: " + url.toString());
 
             // Create the request to api.themoviedb.org, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -171,8 +161,10 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
         super.onPostExecute(movieParcelables);
         if (movieParcelables != null) {
             // clear any old movies
+            Log.d(LOG_TAG, "Clearing adapter");
             mMoviesAdapter.clear();
             // iterate over the new ArrayList of MovieParcelable objects
+            // and add them to the empty adapter
             Iterator iterator = movieParcelables.iterator();
             while (iterator.hasNext()) {
                 mMoviesAdapter.add((MovieParcelable) iterator.next());

@@ -64,14 +64,12 @@ public class MovieParcelable implements Parcelable {
     }
 
     // Parcelling part
-    public MovieParcelable(Parcel in) {
-        String[] data = new String[5];
-        in.readStringArray(data);
-        this.posterFileName = data[0];
-        this.title = data[1];
-        this.plot = data[2];
-        this.userRating = data[3];
-        this.releaseDate = data[4];
+    private MovieParcelable(Parcel in) {
+        posterFileName = in.readString();
+        title = in.readString();
+        plot = in.readString();
+        userRating = in.readString();
+        releaseDate = in.readString();
     }
 
     @Override
@@ -80,9 +78,12 @@ public class MovieParcelable implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeStringArray(new String[]{this.posterFileName, this.title, this.plot, this.userRating, this.releaseDate});
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(posterFileName);
+        parcel.writeString(title);
+        parcel.writeString(plot);
+        parcel.writeString(userRating);
+        parcel.writeString(releaseDate);
     }
 
     public static final Parcelable.Creator<MovieParcelable> CREATOR

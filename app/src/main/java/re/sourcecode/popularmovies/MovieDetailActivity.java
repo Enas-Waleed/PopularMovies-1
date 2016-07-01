@@ -16,6 +16,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         if (savedInstanceState == null) {
+            //no saved instance yet in the moviedetail, so we will only create the fragment view
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new MovieDetailFragment()).commit();
         }

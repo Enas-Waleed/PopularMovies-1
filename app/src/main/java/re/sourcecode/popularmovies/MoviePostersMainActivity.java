@@ -14,35 +14,32 @@ public class MoviePostersMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
+            //no saved instancedata in activty yet, so just start the fragment
             getSupportFragmentManager().
                     beginTransaction().
                     add(R.id.movie_posters_container, new MoviePostersFragment())
                     .commit();
-
-
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu settings memu.
         getMenuInflater().inflate(R.menu.mainmenu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // get the id of the item id of the drop down element in the action bar
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //if settings is selected, send an intent to the settings activity
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
