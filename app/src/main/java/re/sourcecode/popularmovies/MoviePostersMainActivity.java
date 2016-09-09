@@ -7,18 +7,38 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MoviePostersMainActivity extends AppCompatActivity {
+import re.sourcecode.popularmovies.models.MovieParcelable;
+
+public class MoviePostersMainActivity extends AppCompatActivity implements MoviePostersFragment.Callback {
+
+    private boolean mTwoPane;
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            //no saved instancedata in activty yet, so just start the fragment
-            getSupportFragmentManager().
-                    beginTransaction().
-                    add(R.id.movie_posters_container, new MoviePostersFragment())
+
+        if (findViewById(R.id.movie_detail_container)!= null) {
+            mTwoPane = true;
+        } else {
+            mTwoPane = false;
+        }
+
+    }
+
+    @Override
+    public void onItemSelected(MovieParcelable movie) {
+
+        if (mTwoPane) {
+            MovieDetailFragment fragment = MovieDetailFragment.newInstance(movie);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.movie_detail_container, fragment, MovieDetailFragment.class.getSimpleName())
                     .commit();
+        } else {
+            Intent intent = new Intent(this, MovieDetailActivity.class);
+            intent.putExtra(MovieDetailActivity.MOVIE_DETAIL, movie);
+            startActivity(intent);
         }
     }
 

@@ -40,6 +40,12 @@
                 android:value=".MoviePostersMainActivity" />
 
         </activity>
+
+        <provider
+            android:authorities="@string/content_authority"
+            android:name=".data.MovieProvider"
+            android:exported="false"
+            android:syncable="true"/>
 </application>
 
     </manifest>

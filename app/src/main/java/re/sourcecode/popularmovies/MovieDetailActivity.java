@@ -9,16 +9,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import re.sourcecode.popularmovies.models.MovieParcelable;
+
 public class MovieDetailActivity extends AppCompatActivity {
+    public static final String MOVIE_DETAIL = "movie_detail";
+
+    private MovieParcelable mMovie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         if (savedInstanceState == null) {
-            //no saved instance yet in the moviedetail, so we will only create the fragment view
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new MovieDetailFragment()).commit();
+            if(getIntent().hasExtra(MOVIE_DETAIL)) {
+                mMovie = getIntent().getParcelableExtra(MOVIE_DETAIL);
+            }
+            final MovieDetailFragment fragment = MovieDetailFragment.newInstance(mMovie);
+            getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
         }
     }
 

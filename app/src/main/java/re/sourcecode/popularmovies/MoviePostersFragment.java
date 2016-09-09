@@ -30,6 +30,12 @@ public class MoviePostersFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+    public interface Callback {
+        // called on click in grid
+        void onItemSelected(MovieParcelable movie);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,11 +90,7 @@ public class MoviePostersFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MovieParcelable movie = mMoviesAdapter.getItem(position);
-                Log.d(LOG_TAG, movie.toString());
-                // start the movie detail fragment
-                Intent detailedIntent = new Intent(getActivity(), MovieDetailActivity.class);
-                detailedIntent.putExtra("movie", movie);
-                startActivity(detailedIntent);
+                ((Callback)getActivity()).onItemSelected(movie);
             }
         });
         //return rootview with gridview
@@ -103,7 +105,7 @@ public class MoviePostersFragment extends Fragment {
     }
 
     private void updateMovies(String sort_by) {
-        //start the asynctask that download the movie data and update the gridview adapter
+        //start the asynctask that download the movie data and update the gridview adapte
         new FetchMovieData(getActivity(), mMoviesAdapter).execute(sort_by);
     }
 }

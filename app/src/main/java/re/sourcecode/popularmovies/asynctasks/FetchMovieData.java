@@ -1,6 +1,10 @@
 package re.sourcecode.popularmovies.asynctasks;
 
+import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Movie;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -15,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +27,7 @@ import java.util.List;
 import re.sourcecode.popularmovies.BuildConfig;
 import re.sourcecode.popularmovies.R;
 import re.sourcecode.popularmovies.adapters.MoviePostersGridViewAdapter;
+import re.sourcecode.popularmovies.data.MovieContract;
 import re.sourcecode.popularmovies.models.MovieParcelable;
 
 public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
@@ -33,41 +39,6 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
     public FetchMovieData(Context current, MoviePostersGridViewAdapter adapter) {
         this.context = current;
         this.mMoviesAdapter = adapter;
-    }
-
-    private ArrayList<MovieParcelable> getMovieDataFromJson(String theMovieDbJsonStr, String posterSize) throws JSONException {
-        JSONArray theMovieArray; //array for the downloaded json list
-        JSONObject theMovieDbJson; //array for the downloaded single movie json object
-        Uri.Builder posterURLBuilder; //to store the url+uri for downloading json list
-        ArrayList<MovieParcelable> results = new ArrayList<MovieParcelable>(); //arraylist to hold de movie parcelables
-        //Base url for poster
-        posterURLBuilder = Uri.parse(context.getResources().getString(R.string.moviedb_poster_url)).buildUpon();
-
-        if (posterSize == context.getResources().getString(R.string.moviedb_poster_uri_w342)) {
-            posterURLBuilder.appendPath(context.getResources().getString(R.string.moviedb_poster_uri_w342));
-        } else {
-            posterURLBuilder.appendPath(context.getResources().getString(R.string.moviedb_poster_uri_w185));
-        }
-        // parse the data from server as json
-        theMovieDbJson = new JSONObject(theMovieDbJsonStr);
-        theMovieArray = theMovieDbJson.getJSONArray(context.getResources().getString(R.string.moviedb_json_results));
-
-
-        for (int i = 0; i < theMovieArray.length(); i++) {
-            JSONObject aMovie = theMovieArray.getJSONObject(i);
-
-            String posterFileName = aMovie.getString(context.getResources().getString(R.string.moviedb_json_poster_path));
-            String title = aMovie.getString(context.getResources().getString(R.string.moviedb_json_title));
-            String plot = aMovie.getString(context.getResources().getString(R.string.moviedb_json_plot));
-            String user_rating = aMovie.getString(context.getResources().getString(R.string.moviedb_json_user_rating));
-            String release_date = aMovie.getString(context.getResources().getString(R.string.moviedb_json_release));
-
-            results.add(new MovieParcelable(posterFileName, title, plot, user_rating, release_date)); //create new parcable
-
-        }
-
-        return results;
-
     }
 
     @Override
@@ -89,8 +60,13 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
 
             if (params[0].equals(context.getResources().getString(R.string.pref_default_sort_by))) {
                 sortOrder = context.getResources().getString(R.string.moviedb_uri_popular);
-            } else {
+            }
+            else if (params[0].equals(context.getResources().getString(R.string.pref_sort_by_top_rated))) {
                 sortOrder = context.getResources().getString(R.string.moviedb_uri_top_rated);
+            }
+            else {
+                //get movies from DB
+                return getMovieDataFromDB();
             }
 
             Uri builtUri = Uri.parse(context.getResources().getString(R.string.moviedb_url)).buildUpon()
@@ -132,6 +108,10 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
             // If the code didn't successfully get the movie data, there's no point in attemping
             // to parse it.
             return null;
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "SQL Error ", e);
+            return null;
+
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -171,5 +151,46 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
             }
         }
         mMoviesAdapter.notifyDataSetChanged();
+    }
+
+    private ArrayList<MovieParcelable> getMovieDataFromJson(String theMovieDbJsonStr, String posterSize) throws JSONException {
+        JSONArray theMovieArray; //array for the downloaded json list
+        JSONObject theMovieDbJson; //array for the downloaded single movie json object
+        Uri.Builder posterURLBuilder; //to store the url+uri for downloading json list
+        ArrayList<MovieParcelable> results = new ArrayList<MovieParcelable>(); //arraylist to hold de movie parcelables
+        //Base url for poster
+        posterURLBuilder = Uri.parse(context.getResources().getString(R.string.moviedb_poster_url)).buildUpon();
+
+        if (posterSize == context.getResources().getString(R.string.moviedb_poster_uri_w342)) {
+            posterURLBuilder.appendPath(context.getResources().getString(R.string.moviedb_poster_uri_w342));
+        } else {
+            posterURLBuilder.appendPath(context.getResources().getString(R.string.moviedb_poster_uri_w185));
+        }
+        // parse the data from server as json
+        theMovieDbJson = new JSONObject(theMovieDbJsonStr);
+        theMovieArray = theMovieDbJson.getJSONArray(context.getResources().getString(R.string.moviedb_json_results));
+
+
+        for (int i = 0; i < theMovieArray.length(); i++) {
+            JSONObject aMovie = theMovieArray.getJSONObject(i);
+            results.add(new MovieParcelable(aMovie)); //create new parcable
+        }
+        return results;
+    }
+
+    private ArrayList<MovieParcelable> getMovieDataFromDB() throws SQLException {
+        ContentResolver resolver = context.getContentResolver();
+        ArrayList<MovieParcelable> results = new ArrayList<MovieParcelable>();
+        Cursor cursor = resolver.query(MovieContract.MovieEntry.CONTENT_URI, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                final MovieParcelable aMovie = new MovieParcelable(cursor);
+                results.add(aMovie);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return results;
     }
 }

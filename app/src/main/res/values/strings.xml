@@ -1,4 +1,5 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+    <string name="content_authority">re.sourcecode.popularmovies</string>
     <string name="app_name">PopularMovies</string>
 
     <!--Menu strings -->
@@ -6,13 +7,16 @@
     <string-array name="pref_sort_by_array_strings">
         <item>Most popular</item>
         <item>Top rated</item>
+        <item>Favorites</item>
     </string-array>
     <string-array name="pref_sort_by_array_values">
         <item translateable="false">1</item> <!--default value maps to Most Popular-->
         <item translateable="false">2</item>
+        <item translateable="false">3</item>
     </string-array>
     <string name="pref_sort_by">Sort by</string>
     <string name="pref_default_sort_by" translatable="false">1</string>
+    <string name="pref_sort_by_top_rated" translatable="false">2</string>
 
     <!-- the movie db related strings -->
     <!--
@@ -23,6 +27,8 @@
     <string name="moviedb_url" translatable="false">https://api.themoviedb.org/3/movie</string>
     <string name="moviedb_uri_top_rated" translatable="false">top_rated</string>
     <string name="moviedb_uri_popular" translatable="false">popular</string>
+    <string name="moviedb_uri_reviews" translatable="false">reviews</string>
+    <string name="moviedb_uri_trailers" translatable="false">videos</string>
     <string name="moviedb_query_api_key" translatable="false">api_key</string>
     <!--
     {
@@ -43,6 +49,7 @@
                   "video": false,"vote_average": 7.18
                 },
     -->
+    <string name="moviedb_json_id" translatable="false">id</string>
     <string name="moviedb_json_results" translatable="false">results</string>
     <string name="moviedb_json_title" translatable="false">title</string>
     <string name="moviedb_json_plot" translatable="false">overview</string>
@@ -63,8 +70,10 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to movie details -->
-    <string name="button_favourite">mark as\n favourite</string>
+    <string name="switch_favorite">Favorite:</string>
     <string name="detailview_released">Released:</string>
-
+    <string name="detailview_rating">Rating:</string>
+    <string name="detailview_reviews">Reviews:</string>
+    <string name="detailview_trailers">Trailers:</string>
 
 </resources>

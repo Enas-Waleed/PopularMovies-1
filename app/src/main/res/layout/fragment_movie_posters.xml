@@ -1,15 +1,19 @@
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movie_posters_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="re.sourcecode.popularmovies.MoviePostersFragment">
+    android:name="re.sourcecode.popularmovies.MoviePostersFragment"
+    tools:context="re.sourcecode.popularmovies.MoviePostersFragment"
+    tools:layout="@android:layout/list_content">
 
     <GridView
         android:id="@+id/grid_movie_posters"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:numColumns="2"
+        android:numColumns="auto_fit"
+        tools:context=".MoviePostersFragment"
         />
 
 </FrameLayout>
