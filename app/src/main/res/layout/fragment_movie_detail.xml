@@ -20,7 +20,6 @@
                 android:id="@+id/detailview_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:padding="16dp"
                 android:textColor="@android:color/white"
                 android:textSize="28sp"
@@ -131,12 +130,12 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textStyle="italic" />
 
-                <ListView
+                <re.sourcecode.popularmovies.views.ExpandedListView
                     android:id="@+id/list_view_trailers"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="true"
-                    ></ListView>
+                    />
             </LinearLayout>
 
             <View
@@ -148,7 +147,6 @@
                 android:id="@+id/detailview_linear_reviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/detailview_scroll"
                 android:orientation="vertical"
                 android:layout_weight="1">
 
@@ -162,10 +160,10 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textStyle="italic" />
 
-                <ListView
+                <re.sourcecode.popularmovies.views.ExpandedListView
                     android:id="@+id/list_view_reviews"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
                     android:nestedScrollingEnabled="true"
                     android:scrollbarAlwaysDrawVerticalTrack="true"/>

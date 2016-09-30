@@ -5,11 +5,11 @@
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
-    tools:context="re.sourcecode.popularmovies.MoviePostersMainActivity">
+    tools:context="re.sourcecode.popularmovies.activities.MoviePostersMainActivity">
 
     <fragment
         android:id="@+id/fragment_movie_detail"
-        android:name="re.sourcecode.popularmovies.MoviePostersFragment"
+        android:name="re.sourcecode.popularmovies.fragments.MoviePostersFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"

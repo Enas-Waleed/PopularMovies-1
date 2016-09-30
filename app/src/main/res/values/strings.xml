@@ -1,4 +1,4 @@
-<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
+<resources>
     <string name="content_authority">re.sourcecode.popularmovies</string>
     <string name="app_name">PopularMovies</string>
 
@@ -75,5 +75,6 @@
     <string name="detailview_rating">Rating:</string>
     <string name="detailview_reviews">Reviews:</string>
     <string name="detailview_trailers">Trailers:</string>
+    <string name="empty_movie_posters_list">No movies found</string>
 
 </resources>

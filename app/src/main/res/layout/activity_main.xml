@@ -1,6 +1,6 @@
 <fragment
     android:id="@+id/fragment_movie_posters"
-    android:name="re.sourcecode.popularmovies.MoviePostersFragment"
+    android:name="re.sourcecode.popularmovies.fragments.MoviePostersFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"

@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import re.sourcecode.popularmovies.BuildConfig;
 import re.sourcecode.popularmovies.R;
@@ -32,7 +33,7 @@ import re.sourcecode.popularmovies.models.MovieParcelable;
 
 public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
 
-    private final String LOG_TAG = FetchMovieData.class.getSimpleName();
+    private static final String LOG_TAG = FetchMovieData.class.getSimpleName();
     private Context context;
     private MoviePostersGridViewAdapter mMoviesAdapter;
 
@@ -84,7 +85,7 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
 
             // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream == null) {
                 // Nothing to do.
                 return null;
@@ -95,7 +96,7 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
                 // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
                 // But it does make debugging a *lot* easier if you print out the completed
                 // buffer for debugging.
-                buffer.append(line + "\n");
+                buffer.append(line).append("\n");
             }
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.
@@ -145,9 +146,8 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
             mMoviesAdapter.clear();
             // iterate over the new ArrayList of MovieParcelable objects
             // and add them to the empty adapter
-            Iterator iterator = movieParcelables.iterator();
-            while (iterator.hasNext()) {
-                mMoviesAdapter.add((MovieParcelable) iterator.next());
+            for (Object movieParcelable : movieParcelables) {
+                mMoviesAdapter.add((MovieParcelable) movieParcelable);
             }
         }
         mMoviesAdapter.notifyDataSetChanged();
@@ -157,11 +157,11 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
         JSONArray theMovieArray; //array for the downloaded json list
         JSONObject theMovieDbJson; //array for the downloaded single movie json object
         Uri.Builder posterURLBuilder; //to store the url+uri for downloading json list
-        ArrayList<MovieParcelable> results = new ArrayList<MovieParcelable>(); //arraylist to hold de movie parcelables
+        ArrayList<MovieParcelable> results = new ArrayList<>(); //arraylist to hold de movie parcelables
         //Base url for poster
         posterURLBuilder = Uri.parse(context.getResources().getString(R.string.moviedb_poster_url)).buildUpon();
 
-        if (posterSize == context.getResources().getString(R.string.moviedb_poster_uri_w342)) {
+        if (Objects.equals(posterSize, context.getResources().getString(R.string.moviedb_poster_uri_w342))) {
             posterURLBuilder.appendPath(context.getResources().getString(R.string.moviedb_poster_uri_w342));
         } else {
             posterURLBuilder.appendPath(context.getResources().getString(R.string.moviedb_poster_uri_w185));
@@ -180,7 +180,7 @@ public class FetchMovieData extends AsyncTask<String, Void, ArrayList> {
 
     private ArrayList<MovieParcelable> getMovieDataFromDB() throws SQLException {
         ContentResolver resolver = context.getContentResolver();
-        ArrayList<MovieParcelable> results = new ArrayList<MovieParcelable>();
+        ArrayList<MovieParcelable> results = new ArrayList<>();
         Cursor cursor = resolver.query(MovieContract.MovieEntry.CONTENT_URI, null, null, null, null);
 
         if (cursor.moveToFirst()) {

@@ -1,4 +1,4 @@
-package re.sourcecode.popularmovies;
+package re.sourcecode.popularmovies.fragments;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -21,15 +21,14 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
+import re.sourcecode.popularmovies.R;
 import re.sourcecode.popularmovies.adapters.MovieReviewsListViewAdapter;
 import re.sourcecode.popularmovies.adapters.MovieTrailersListViewAdapter;
 import re.sourcecode.popularmovies.asynctasks.FetchReviewData;
 import re.sourcecode.popularmovies.asynctasks.FetchTrailerData;
 import re.sourcecode.popularmovies.data.MovieContract;
 import re.sourcecode.popularmovies.models.MovieParcelable;
-import re.sourcecode.popularmovies.models.MovieReviewParcelable;
 
 public class MovieDetailFragment extends Fragment {
 
@@ -38,8 +37,8 @@ public class MovieDetailFragment extends Fragment {
     private static final String ARG_MOVIE = "movie";
     private MovieParcelable mMovie;
     private Switch mFavourite;
-    MovieReviewsListViewAdapter mMoviesReviewsAdapter;
-    MovieTrailersListViewAdapter mMovieTrailersAdapter;
+    private MovieReviewsListViewAdapter mMoviesReviewsAdapter;
+    private MovieTrailersListViewAdapter mMovieTrailersAdapter;
 
 
     public static MovieDetailFragment newInstance(final MovieParcelable movieParcelable) {

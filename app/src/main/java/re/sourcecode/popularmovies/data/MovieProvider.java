@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import re.sourcecode.popularmovies.models.MovieParcelable;
@@ -20,14 +21,14 @@ import re.sourcecode.popularmovies.models.MovieParcelable;
 
 public class MovieProvider extends ContentProvider {
 
-    private final String LOG_TAG = MovieProvider.class.getSimpleName();
+    private static final String LOG_TAG = MovieProvider.class.getSimpleName();
 
     // The URI Matcher used by this content provider.
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private MovieDbHelper mOpenHelper;
 
-    static final int MOVIE = 100;
-    static final int MOVIE_WITH_ID = 101;
+    private static final int MOVIE = 100;
+    private static final int MOVIE_WITH_ID = 101;
 
     /*
     This UriMatcher will match each URI to the MOVIE integer constant defined above.
@@ -56,7 +57,7 @@ public class MovieProvider extends ContentProvider {
      The getType function that uses the UriMatcher.
     */
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         final int match = sUriMatcher.match(uri);
 
         switch (match) {
@@ -70,7 +71,7 @@ public class MovieProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs,
                         String sortOrder) {
         Cursor retCursor;
         // Here's the switch statement that, given a URI, will determine what kind of request it is,
@@ -108,7 +109,7 @@ public class MovieProvider extends ContentProvider {
     Insert favourite Movies
     */
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
 
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         Uri returnUri;
@@ -135,7 +136,7 @@ public class MovieProvider extends ContentProvider {
     Un-favourite or delete a movie from the database
     */
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
 
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int rowsDeleted;
@@ -157,7 +158,7 @@ public class MovieProvider extends ContentProvider {
     }
 
     @Override
-    public int bulkInsert(Uri uri, ContentValues[] values){
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values){
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         final int match = sUriMatcher.match(uri);
         switch(match){
@@ -207,7 +208,7 @@ public class MovieProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         int rowsUpdated;

@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:name="re.sourcecode.popularmovies.MoviePostersFragment"
-    tools:context="re.sourcecode.popularmovies.MoviePostersFragment"
+    tools:context=".fragments.MoviePostersFragment"
     tools:layout="@android:layout/list_content">
 
     <GridView
@@ -13,7 +13,20 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:numColumns="auto_fit"
-        tools:context=".MoviePostersFragment"
+        tools:context=".fragments.MoviePostersFragment"
+        />
+
+    <!-- empty grid -->
+    <TextView
+        android:id="@+id/grid_movie_posters_empty"
+        android:text="@string/empty_movie_posters_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         />
 
 </FrameLayout>

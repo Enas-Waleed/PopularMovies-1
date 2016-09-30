@@ -1,12 +1,14 @@
-package re.sourcecode.popularmovies;
+package re.sourcecode.popularmovies.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import re.sourcecode.popularmovies.R;
+import re.sourcecode.popularmovies.fragments.MovieDetailFragment;
+import re.sourcecode.popularmovies.fragments.MoviePostersFragment;
 import re.sourcecode.popularmovies.models.MovieParcelable;
 
 public class MoviePostersMainActivity extends AppCompatActivity implements MoviePostersFragment.Callback {
@@ -19,11 +21,7 @@ public class MoviePostersMainActivity extends AppCompatActivity implements Movie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (findViewById(R.id.movie_detail_container)!= null) {
-            mTwoPane = true;
-        } else {
-            mTwoPane = false;
-        }
+        mTwoPane = findViewById(R.id.movie_detail_container) != null;
 
     }
 

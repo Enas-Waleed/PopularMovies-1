@@ -13,7 +13,7 @@ import org.json.JSONObject;
  */
 public class MovieReviewParcelable implements Parcelable {
 
-    private final String LOG_TAG = MovieReviewParcelable.class.getSimpleName();
+    private static final String LOG_TAG = MovieReviewParcelable.class.getSimpleName();
     private long movieId;
     private String reviewId;
     private String reviewAuthor;

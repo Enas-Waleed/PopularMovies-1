@@ -1,15 +1,12 @@
-package re.sourcecode.popularmovies;
+package re.sourcecode.popularmovies.activities;
 
 
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import re.sourcecode.popularmovies.R;
+import re.sourcecode.popularmovies.fragments.SettingsFragment;
 
 
 public class SettingsActivity extends AppCompatActivity {

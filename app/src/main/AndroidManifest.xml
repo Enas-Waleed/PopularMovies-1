@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity
-            android:name=".MoviePostersMainActivity"
+            android:name=".activities.MoviePostersMainActivity"
             android:label="Popular Movies">
 
            <intent-filter>
@@ -23,21 +23,21 @@
         </activity>
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MoviePostersMainActivity" >
+            android:parentActivityName=".activities.MoviePostersMainActivity" >
             <!-- above and below set for getting a back button in the actionbar of appcompatactivity -->
            <meta-data
                android:name="android.support.PARENT_ACTIVITY"
-               android:value=".MoviePostersMainActivity" />
+               android:value=".activities.MoviePostersMainActivity" />
         </activity>
 
         <activity
-            android:name=".MovieDetailActivity"
-            android:parentActivityName=".MoviePostersMainActivity" >
+            android:name=".activities.MovieDetailActivity"
+            android:parentActivityName=".activities.MoviePostersMainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MoviePostersMainActivity" />
+                android:value=".activities.MoviePostersMainActivity" />
 
         </activity>
 

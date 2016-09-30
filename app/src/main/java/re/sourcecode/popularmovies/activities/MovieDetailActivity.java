@@ -1,14 +1,10 @@
-package re.sourcecode.popularmovies;
+package re.sourcecode.popularmovies.activities;
 
-import android.support.v4.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
+import re.sourcecode.popularmovies.R;
+import re.sourcecode.popularmovies.fragments.MovieDetailFragment;
 import re.sourcecode.popularmovies.models.MovieParcelable;
 
 public class MovieDetailActivity extends AppCompatActivity {

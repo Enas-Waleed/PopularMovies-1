@@ -10,15 +10,15 @@ import re.sourcecode.popularmovies.models.MovieParcelable;
  * Created by olem on 9/4/16.
  * Helper tools for favourite movies
  */
-public class MovieDbHelper extends SQLiteOpenHelper {
+class MovieDbHelper extends SQLiteOpenHelper {
 
-    private final String LOG_TAG = MovieDbHelper.class.getSimpleName();
+    private static final String LOG_TAG = MovieDbHelper.class.getSimpleName();
 
     private static final int DATABASE_VERSION = 1;
 
-    static final String DATABASE_NAME = "movie.db";
+    private static final String DATABASE_NAME = "movie.db";
 
-    public MovieDbHelper(Context context) {
+    MovieDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

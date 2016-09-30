@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import re.sourcecode.popularmovies.BuildConfig;
-import re.sourcecode.popularmovies.MovieDetailFragment;
+import re.sourcecode.popularmovies.fragments.MovieDetailFragment;
 import re.sourcecode.popularmovies.R;
 import re.sourcecode.popularmovies.models.MovieTrailerParcelable;
 
@@ -27,7 +27,7 @@ import re.sourcecode.popularmovies.models.MovieTrailerParcelable;
  * Created by olem on 9/9/16.
  */
 public class FetchTrailerData extends AsyncTask<String, Void, ArrayList> {
-    private final String LOG_TAG = FetchTrailerData.class.getSimpleName();
+    private static final String LOG_TAG = FetchTrailerData.class.getSimpleName();
     private Context context;
     private MovieDetailFragment.FragmentCallback mMovieDetailFragmentCallback; //callback for when the async task is finished
 
@@ -62,7 +62,7 @@ public class FetchTrailerData extends AsyncTask<String, Void, ArrayList> {
 
             // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream == null) {
                 // Nothing to do.
                 return null;
@@ -73,7 +73,7 @@ public class FetchTrailerData extends AsyncTask<String, Void, ArrayList> {
                 // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
                 // But it does make debugging a *lot* easier if you print out the completed
                 // buffer for debugging.
-                buffer.append(line + "\n");
+                buffer.append(line).append("\n");
             }
             if (buffer.length() == 0) {
                 // Stream was empty.  No point in parsing.
@@ -121,7 +121,7 @@ public class FetchTrailerData extends AsyncTask<String, Void, ArrayList> {
     private ArrayList<MovieTrailerParcelable> getTrailerDataFromJson(String movieId, String theMovieDbJsonStr) throws JSONException,ParseException {
         JSONArray theTrailerArray; //array for the downloaded json list
         JSONObject theMovieDbJson; //array for the downloaded single movie json object
-        ArrayList<MovieTrailerParcelable> results = new ArrayList<MovieTrailerParcelable>(); //arraylist to hold de movie parcelables
+        ArrayList<MovieTrailerParcelable> results = new ArrayList<>(); //arraylist to hold de movie parcelables
 
         // parse the data from server as json
         theMovieDbJson = new JSONObject(theMovieDbJsonStr);

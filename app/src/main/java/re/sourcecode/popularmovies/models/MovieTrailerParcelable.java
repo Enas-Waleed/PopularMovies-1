@@ -11,7 +11,7 @@ import org.json.JSONObject;
  * Created by olem on 9/9/16.
  */
 public class MovieTrailerParcelable implements Parcelable {
-    private final String LOG_TAG = MovieTrailerParcelable.class.getSimpleName();
+    private static final String LOG_TAG = MovieTrailerParcelable.class.getSimpleName();
     private long movieId;
     private String trailerId;
     private String trailerName;

@@ -18,7 +18,7 @@ import re.sourcecode.popularmovies.models.MovieParcelable;
 
 public class MoviePostersGridViewAdapter extends BaseAdapter {
 
-    private final String LOG_TAG = MoviePostersGridViewAdapter.class.getSimpleName();
+    private static final String LOG_TAG = MoviePostersGridViewAdapter.class.getSimpleName();
     private final Context context;
     private ArrayList<MovieParcelable> movies;
 

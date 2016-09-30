@@ -3,21 +3,18 @@ package re.sourcecode.popularmovies.models;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.StrictMode;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
 
-import re.sourcecode.popularmovies.MoviePostersFragment;
-import re.sourcecode.popularmovies.asynctasks.FetchMovieData;
 import re.sourcecode.popularmovies.data.MovieContract;
 
 
 public class MovieParcelable implements Parcelable {
 
-    private final String LOG_TAG = MovieParcelable.class.getSimpleName();
+    private static final String LOG_TAG = MovieParcelable.class.getSimpleName();
     private long movieId;
     private String posterFileName;
     private String title;

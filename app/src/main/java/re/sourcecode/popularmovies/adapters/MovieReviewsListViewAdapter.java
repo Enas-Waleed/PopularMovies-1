@@ -1,6 +1,7 @@
 package re.sourcecode.popularmovies.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +20,17 @@ import re.sourcecode.popularmovies.models.MovieReviewParcelable;
 public class MovieReviewsListViewAdapter extends ArrayAdapter<MovieReviewParcelable> {
 
 
-    private final String LOG_TAG = MovieReviewsListViewAdapter.class.getSimpleName();
-    ArrayList<MovieReviewParcelable> mReviews;
+    private static final String LOG_TAG = MovieReviewsListViewAdapter.class.getSimpleName();
+    private ArrayList<MovieReviewParcelable> mReviews;
+
     public MovieReviewsListViewAdapter(Context context, ArrayList<MovieReviewParcelable> reviews) {
         super(context,0, reviews);
         this.mReviews = reviews;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         //Log.d(LOG_TAG, Integer.toString(position));
         MovieReviewParcelable review = getItem(position);
         if (convertView == null) {
