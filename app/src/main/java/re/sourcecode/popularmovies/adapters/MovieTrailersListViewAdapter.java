@@ -39,7 +39,7 @@ public class MovieTrailersListViewAdapter extends ArrayAdapter<MovieTrailerParce
         final ViewHolder viewHolder;
 
         MovieTrailerParcelable trailer = getItem(position);
-        if (convertView == null) {
+        if (convertView == null || convertView.getTag() == null) {
 
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.list_item_movie_trailer, parent, false);
