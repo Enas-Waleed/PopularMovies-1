@@ -1,4 +1,4 @@
-# AndroidPopularMovies
+# PopularMovies
 
 This is a app created in the Udacity Nanodegree program.
 
